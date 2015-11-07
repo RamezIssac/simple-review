@@ -1,0 +1,7 @@
+include src/simple_review/templates/simple_review/*.html
+include src/simple_review/locale/*/LC_MESSAGES/django.*
+include LICENSE
+include README.md
+include CHANGELOG.md
+include MANIFEST.in
+recursive-include docs *

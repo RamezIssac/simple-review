@@ -1,0 +1,47 @@
+{% load i18n %}
+{# Available variables #}
+
+{# review_form: the review form#}
+{# w_media: if True, we insert the review_form media (css,js) #}
+{# submit_classes: classes for the submit input #}
+{# submit_classes: classes for the submit input #}
+
+{% if w_media %}
+    {{ review_form.media }}
+{% endif %}
+
+<form id="review_form" method="post" action="{% url 'post_review' %}">
+    <style>
+        .form-error {
+            color: red;
+            border-color: red;
+        }
+    </style>
+    {% csrf_token %}
+    {{ review_form }}
+    <input type="submit" class="{{ submit_classes }}" formmethod="post" value="{% trans submit_value|default:'submit' %}">
+</form>
+<script>
+    $('#review_form').submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+        $.post('{% url 'post_review' %}', form.serialize(), function success(data) {
+            if (data.status != 'ok') {
+                // There are errors (most likely body is required), we should present those errors
+                // to the user
+                for (var prop in data.errors) {
+                    if (data.errors.hasOwnProperty(prop)) {
+                        form.find('[name=' + prop + ']').after(
+                                '<div class="form-error"> ' + data.errors[prop] + ' </div>'
+                        ).addClass('form-error');
+                    }
+                }
+            } else {
+                // Success! Let's reload the page and see what happens
+                location.reload();
+            }
+        }).fail(function (data) {
+            console.log(' Fail ',  data)
+        })
+    })
+</script>

@@ -1,0 +1,13 @@
+.simple-review-raty {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+img[src$="star-half.png"] {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: fliph; /*IE*/
+    filter: fliph; /*IE*/
+}

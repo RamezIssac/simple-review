@@ -1,0 +1,18 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    {{ review_form.media }}
+</head>
+<body>
+{{ object }}
+
+<hr/>
+{% include 'simple_review/review_form.html' %}
+<hr/>
+
+{{ reviews }}
+{% for object in reviews %}
+    {% include 'simple_review/review_detail.html' %}
+{% endfor %}
+</body>
+</html>
